@@ -8,7 +8,6 @@ import Footer from './Pages/Shared/Footer/Footer';
 function App() {
   return (
     <div className="App">
-      <h2>Car services</h2>
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>} />
