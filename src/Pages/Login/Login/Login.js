@@ -40,7 +40,7 @@ const Login = () => {
                     Submit
                 </Button>
             </Form>
-            <p className='text-center'>New to Genius Car ? <Link to='/register' onClick={navigateRegister}  className='text-danger pe-auto'>Please Register</Link></p>
+            <p className='text-center'>New to Genius Car ? <Link to='/register' onClick={navigateRegister}  className='text-danger pe-auto text-decoration-none'>Please Register</Link></p>
         </div>
     );
 };
