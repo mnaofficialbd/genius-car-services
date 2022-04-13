@@ -8,24 +8,27 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
 
-    const [createUserWithEmailAndPassword, user, error] = useCreateUserWithEmailAndPassword(auth);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [agree, setAgree] = useState(false);
+    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth);
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
     const navigateLogin = (event) => {
         navigate('/login')
     }
-    if(user){
+    if (user) {
         navigate('/home')
     }
     const handleRegister = event => {
         event.preventDefault();
-        const name = event.target.name.value;
+        // const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-
-        createUserWithEmailAndPassword(email,password);
+        // const agree=event.target.terms.checked;
+        if (agree) {
+            createUserWithEmailAndPassword(email, password);
+        }
     }
     return (
         <div className='register-form'>
@@ -34,10 +37,17 @@ const Register = () => {
                 <input type="text" name="name" id="" placeholder='Your Name' />
                 <input type="text" name="email" id="" placeholder='Email' required />
                 <input type="text" name="password" id="" placeholder='Password' required />
-                <input className='btn btn-primary' type="submit" value="Register" />
+                <input onClick={() => setAgree(!agree)} type="checkbox" name="terms" id="terms" />
+                {/* <label className={agree ? 'ps-2' : "ps-2 text-danger"} htmlFor="terms">Accept Genius Car Terms and Condition</label> */}
+                <label className={`ps-2 ${agree ? '' : "text-danger"}`} htmlFor="terms">Accept Genius Car Terms and Condition</label>
+                <input
+                    disabled={!agree}
+                    className='btn btn-primary mt-2 w-50 mx-auto'
+                    type="submit"
+                    value="Register" />
             </form>
-            <p className='text-center'>Already have an account ? <Link to='/login' onClick={navigateLogin} className='text-danger pe-auto text-decoration-none'>Please Login</Link></p>
-            <SocialLogin/>
+            <p className='text-center'>Already have an account ? <Link to='/login' onClick={navigateLogin} className='text-primary pe-auto text-decoration-none'>Please Login</Link></p>
+            <SocialLogin />
         </div>
     );
 };
