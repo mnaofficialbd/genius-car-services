@@ -4,7 +4,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import { async } from '@firebase/util';
+import Loading from '../../Shared/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const emailRef = useRef('');
@@ -18,10 +20,16 @@ const Login = () => {
     const [
         signInWithEmailAndPassword,
         user,
+        loading,
+        sending,
         error
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
+
+    if (loading || sending) {
+        return <Loading />
+    }
 
     if (user) {
         navigate(from, { replace: true })
@@ -40,8 +48,13 @@ const Login = () => {
 
     const resetPassword = async () => {
         const email = emailRef.current.value;
-        await sendPasswordResetEmail(email);
-        alert('Send Email')
+        if (email) {
+            await sendPasswordResetEmail(email);
+            toast('Send Email')
+        }
+        else{
+            toast('Please enter your email address')
+        }
     }
 
     return (
@@ -65,8 +78,9 @@ const Login = () => {
             </Form>
             {errorElement}
             <p className='text-center'>New to Genius Car ? <Link to='/register' onClick={navigateRegister} className='text-primary pe-auto text-decoration-none'>Please Register</Link></p>
-            <p className='text-center'>Forget Password ? <Link to='/register' onClick={resetPassword} className='text-primary pe-auto text-decoration-none'>Reset Password</Link></p>
+            <p className='text-center'>Forget Password ? <button onClick={resetPassword} className='text-primary pe-auto text-decoration-none btn btn-link'>Reset Password</button></p>
             <SocialLogin />
+            <ToastContainer />
         </div>
     );
 };
