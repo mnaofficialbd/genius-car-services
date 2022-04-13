@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./Register.css"
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 
 const Register = () => {
@@ -36,6 +37,7 @@ const Register = () => {
                 <input className='btn btn-primary' type="submit" value="Register" />
             </form>
             <p className='text-center'>Already have an account ? <Link to='/login' onClick={navigateLogin} className='text-danger pe-auto text-decoration-none'>Please Login</Link></p>
+            <SocialLogin/>
         </div>
     );
 };
