@@ -7,8 +7,10 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../../Shared/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageTitle from '../../Shared/PageTitle/PageTitle';
 
 const Login = () => {
+
     const emailRef = useRef('');
     const passwordRef = useRef('');
     const navigate = useNavigate();
@@ -52,13 +54,14 @@ const Login = () => {
             await sendPasswordResetEmail(email);
             toast('Send Email')
         }
-        else{
+        else {
             toast('Please enter your email address')
         }
     }
 
     return (
         <div className='container w-50 mx-auto border m-2 p-2 rounded'>
+            <PageTitle title="Login"></PageTitle>
             <h2 className='text-primary text-center mt-2'>Please Login</h2>
 
             <Form onSubmit={handleSubmit}>

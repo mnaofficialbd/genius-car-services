@@ -7,3 +7,5 @@
 - React Bootstrap
 - React firebase hooks
 - React toastify
+- react-helmet-async
+- React google maps/api
